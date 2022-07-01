@@ -4,10 +4,12 @@ package com.comercio.Controller;
 import com.comercio.Model.Producto;
 import com.comercio.Model.Usuario;
 import com.comercio.Service.ProductoService;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +24,12 @@ public class ProductoController {
     private final Logger loger=LoggerFactory.getLogger(ProductoController.class);
     
     @GetMapping("/")
-    public String show(){
-    
+    public String show(Model model){
+        
+        List<Producto> productos=PS.listarProductos();
+        
+        model.addAttribute("productos",productos);
+        
         return "productos/show";
     }
     @GetMapping("/create")
@@ -35,7 +41,10 @@ public class ProductoController {
     
     @PostMapping("/save")
     public String save(Producto producto){
-        Usuario u= new Usuario(1l, "", "", "", "", "", "", "");
+        int a =1;
+        long b=Long.parseLong(a+"");
+        
+        Usuario u= new Usuario(b, "", "", "", "", "", "", "");
         
         producto.setUsuario(u);
         PS.save(producto);

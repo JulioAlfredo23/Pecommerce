@@ -5,11 +5,13 @@
 package com.comercio.Service;
 
 import com.comercio.Model.Producto;
+import java.util.List;
 import java.util.Optional;
 
 
 public interface ProductoService {
  
+    public List<Producto> listarProductos();
     public Producto save (Producto producto);
     public Optional<Producto> get (Integer id);
     public void update (Producto producto);
