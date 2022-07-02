@@ -74,5 +74,15 @@ public class ProductoController {
         return "redirect:/productos/";
     }
     
+    @GetMapping("/eliminar/{id}")
+    public String elininar(@PathVariable Long id){
+        
+        PS.delete(id);
+        
+        
+    return "redirect:/productos/";
+    }
+    
+    
        
 }
