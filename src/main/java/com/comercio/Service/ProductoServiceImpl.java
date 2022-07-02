@@ -22,9 +22,9 @@ public class ProductoServiceImpl implements ProductoService{
       return pr.save(producto);
         
     }
-
+//    OPTIONAL<T> AYUDA A MANEJAR LOS NULOS 
     @Override
-    public Optional<Producto> get(Integer id) {
+    public Optional<Producto> get(Long id) {
     return pr.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class ProductoServiceImpl implements ProductoService{
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(long id) {
     pr.deleteById(id);
     }
 
