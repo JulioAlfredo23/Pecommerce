@@ -4,6 +4,8 @@ package com.comercio.Controller;
 import com.comercio.Model.Producto;
 import com.comercio.Model.Usuario;
 import com.comercio.Service.ProductoService;
+import com.comercio.Service.UploadFileService;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/productos")
@@ -25,6 +29,9 @@ public class ProductoController {
     private ProductoService PS;
     
     private final Logger loger=LoggerFactory.getLogger(ProductoController.class);
+    
+    @Autowired
+    private UploadFileService Upload;
     
     @GetMapping("/")
     public String show(Model model){
@@ -43,13 +50,35 @@ public class ProductoController {
     }
     
     @PostMapping("/save")
-    public String save(Producto producto){
+    public String save(Producto producto,@RequestParam("img") MultipartFile file) throws IOException{
         int a =2;
         long b=Long.parseLong(a+"");
         
         Usuario u= new Usuario(b, "", "", "", "", "", "", "");
         
         producto.setUsuario(u);
+        
+        //imagen
+        if(producto.getId()==null){//cuando se crea un producto
+            String nombreImagen=Upload.saveImage(file);
+            
+            producto.setImagen(nombreImagen);
+        
+        
+        } else{
+            if (file.isEmpty()){
+            Producto p= new Producto();
+            p= PS.get(producto.getId()).get();
+            producto.setImagen(p.getImagen());
+            
+            }
+            else{
+            String nombreImagen=Upload.saveImage(file);
+            
+            producto.setImagen(nombreImagen);
+            }
+        }
+        
         PS.save(producto);
         loger.info("Este es el objeto producto {}",producto);
     return "redirect:/productos/";
