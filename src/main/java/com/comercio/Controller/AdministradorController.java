@@ -4,7 +4,12 @@
  */
 package com.comercio.Controller;
 
+import com.comercio.Model.Producto;
+import com.comercio.Service.ProductoService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,8 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/administrador")
 public class AdministradorController {
     
+    @Autowired
+    ProductoService ProductoService;
+    
     @GetMapping("/")
-    public String home(){
+    public String home(Model model){
+        List<Producto> productos=ProductoService.listarProductos();
+        model.addAttribute("producto",productos);
+        
         return "administracion/home";
     }
     }
