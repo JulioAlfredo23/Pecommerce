@@ -19,29 +19,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="productos")
+@Table(name = "productos")
 public class Producto {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nombre;
-	private String descripcion;
-	private String imagen;
-	private double precio;
-	private int cantidad;
-	
-	@ManyToOne
-	private Usuario usuario;	
 
-	
-	@Override
-	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", imagen=" + imagen
-				+ ", precio=" + precio + ", cantidad=" + cantidad + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
-	}
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String descripcion;
+    private String nombre;
 
-	
+    private String imagen;
+    private double precio;
+    private int cantidad;
+
+    @ManyToOne
+    private Usuario usuario;
+
+    @Override
+    public String toString() {
+        return "Producto{" + "id=" + id + ", descripcion=" + descripcion + ", nombre=" + nombre + ", imagen=" + imagen + ", precio=" + precio + ", cantidad=" + cantidad + ", usuario=" + usuario + '}';
+    }
+
 }

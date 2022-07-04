@@ -74,7 +74,7 @@ public class ProductoController {
         return "redirect:/productos/";
     }
     
-    @GetMapping("/eliminar/{id}")
+    @PostMapping("/eliminar/{id}")
     public String elininar(@PathVariable Long id){
         
         PS.delete(id);

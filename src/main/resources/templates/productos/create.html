@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>Spring eCommerce</title>
 
 
@@ -41,7 +41,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="nombre">Nombre:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="nombre" name="nombre"
+        <input type="text" class="form-control" id="nombres" name="nombre"
         placeholder="Ingrese el nombre del producto" autocomplete="off" required>
       </div>
     </div>
@@ -80,9 +80,8 @@
 
     <div class="row">
       <div class="col-sm-2">
-        <button type="submit" class="btn btn-success">
-          <span class="glyphicon glyphicon-saved"></span> Guardar
-        </button>
+          <input type="submit" value="Guardar" class="btn btn-success" >
+         
       </div>
     </div>
 
@@ -99,6 +98,12 @@
     <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
+    <!--    Sweet alert-->
+
+ <script th:src="@{/alertas/sweetalert.js}" ></script>
+ 
+
+ 
   </body>
 
 

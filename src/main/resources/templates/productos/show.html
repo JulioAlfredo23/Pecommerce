@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>Spring eCommerce</title>
 
 
@@ -46,8 +46,8 @@
         <th scope="col">Descripción</th>
         <th scope="col">Inventario</th>
         <th scope="col">Precio</th>
-        <th scope="col">Acción</th>
-        <th scope="col">Acción</th>
+        <th scope="col">Acciones</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -57,8 +57,15 @@
         <td th:text="${p.precio}"></td>
         <td th:text="${p.cantidad}"></td>
       
-        <td><a  class="btn btn-warning" th:href="@{/productos/edit/{id} (id=${p.id})}">Editar</a> </td>
-        <td><a  class="btn btn-danger" th:href="@{/productos/eliminar/{id} (id=${p.id})}">Eliminar</a> </td>
+        <td><a  class="btn btn-warning" th:href="@{/productos/edit/{id} (id=${p.id})}">Editar</a>
+        
+            <a  class="btn btn-danger"  th:onclick="AlertaEliminar(this)">Eliminar</a> 
+        <form th:action="@{/productos/eliminar/{id} (id=${p.id})}"
+              method="post">
+           
+        </form>
+             </td>
+        </td>
       </tr>       
     </tbody>
   </table>
@@ -72,6 +79,10 @@
 <!-- Bootstrap core JavaScript -->
  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
     <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!--    Sweet alert-->
+
+ <script th:src="@{/alertas/sweetalert.js}" ></script>
 
 </body>
 
