@@ -87,4 +87,27 @@ public class HomeController {
         
     }
     
+    @GetMapping("/delete/{id}")
+    public String eliminarProducto(@PathVariable Long id,Model model){
+        //lista nueva de productos
+        List<DetalleOrden> ordenesNuevas=new ArrayList<DetalleOrden>();
+        
+        for(DetalleOrden dorden : detalles ){
+        if(dorden.getProducto().getId()!=id){
+        ordenesNuevas.add(dorden);
+        }
+        }
+        //detalles se convierte en una nueva lista solo con los productos que no 
+        //fueron enviados al consultar esta url 
+        detalles=ordenesNuevas;
+        
+        double sumaTotal=0;
+         sumaTotal=detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
+        orden.setTotal(sumaTotal);
+        model.addAttribute("carrito",detalles);
+        model.addAttribute("orden",orden);
+        
+    return "usuario/carrito";
+    }
+    
 }
