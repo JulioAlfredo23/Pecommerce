@@ -76,16 +76,37 @@ public class HomeController {
         detalleOrden.setTotal(producto.getPrecio()*cantidad);    
         detalleOrden.setProducto(producto);
         
-        detalles.add(detalleOrden);
+        //validar que el producto no se añada 2 veces 
         
+        long idproducto=producto.getId();
+        boolean ingresado=detalles.stream().anyMatch(p -> p.getProducto().getId()==idproducto);
+        
+        if (!ingresado){
+        
+        detalles.add(detalleOrden);
+                
+        }
+        
+        else{
         sumaTotal=detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
-        orden.setTotal(sumaTotal);
+        orden.setTotal(sumaTotal);}
         model.addAttribute("carrito",detalles);
         model.addAttribute("orden",orden);
         
         return "usuario/carrito";
         
     }
+    
+    @GetMapping("/TraerCarrito")
+    public String TraerCarrito(Model model){
+        
+        model.addAttribute("carrito",detalles);
+        model.addAttribute("orden",orden);
+        
+    return"usuario/carrito";
+    }
+    
+    
     
     @GetMapping("/delete/{id}")
     public String eliminarProducto(@PathVariable Long id,Model model){
