@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -33,7 +34,7 @@ public class HomeController {
         
         return "usuario/home";
     }   
-    @GetMapping("productohome/{id}")
+    @GetMapping("/productohome/{id}")
     public String productoHome(@PathVariable Long id,Model model){
     
         Producto producto=new Producto();
@@ -45,6 +46,11 @@ public class HomeController {
 
         
         return "usuario/productohome";
+    }
+    
+    @PostMapping("/carrito")
+    public String agregarCarrito(){
+    return "usuario/carrito";
     }
     
 }
