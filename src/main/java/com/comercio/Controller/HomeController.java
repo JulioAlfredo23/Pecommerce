@@ -7,6 +7,7 @@ package com.comercio.Controller;
 import com.comercio.Model.Producto;
 import com.comercio.Service.ProductoService;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,13 @@ public class HomeController {
         return "usuario/home";
     }   
     @GetMapping("productohome/{id}")
-    public String productoHome(@PathVariable Long id){
+    public String productoHome(@PathVariable Long id,Model model){
     
+        Producto producto=new Producto();
+        Optional<Producto> pOptional= ProductoService.get(id);
+        producto=pOptional.get();
+        
+        model.addAttribute("producto", producto);
         Logger.info("id enviado como parametro : {}",id);
 
         

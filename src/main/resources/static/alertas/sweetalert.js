@@ -37,6 +37,35 @@ function AlertaEliminar(elemento)
       
 }
 
+function AlertaHome(elemento)
+{
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          
+          cancelButton: 'btn btn-danger'
+        },
+       
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Aun no terminas tu compra',
+        text: "Estas por regresar a la pagina de inicio",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Regresar',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Quedarme',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+   elemento.nextElementSibling.submit();
+        }
+    
+    })
+      
+}
 
 
 
