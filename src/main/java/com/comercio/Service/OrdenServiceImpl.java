@@ -27,29 +27,33 @@ public class OrdenServiceImpl implements OrdenService{
     public List<Orden> findAll() {
     return OrdenRepository.findAll();
     }
+    //metodo para generar numero de orden 
     
     public String generarNumeroOrden (){
-    int numero=0;
+    Integer numero=0;
     String numeroConcatenado="";
         
         List<Orden>ordenes=findAll();
     
-        List<Integer> numeros=new ArrayList<>();
+        List<Integer> numeros=new ArrayList<Integer>();
         
+        //java 8 - obteniendo el numero de orden
         ordenes.stream().forEach(o -> numeros.add(Integer.parseInt(o.getNumero())));
-        
+        //indicando 
         if (ordenes.isEmpty()){
         numero=1;
+        
         }else{
         numero=numeros.stream().max(Integer::compare).get();
         numero++;
         }
         if(numero<10){
-        numeroConcatenado="P000000000"+String.valueOf(numero);
+        numeroConcatenado="000000000"+String.valueOf(numero);
+       
         }else if(numero<100){
-        numeroConcatenado="P00000000"+String.valueOf(numero);
+        numeroConcatenado="00000000"+String.valueOf(numero);
         }else if(numero<1000){
-        numeroConcatenado="P0000000"+String.valueOf(numero);
+        numeroConcatenado="0000000"+String.valueOf(numero);
         }
         
         return numeroConcatenado;
