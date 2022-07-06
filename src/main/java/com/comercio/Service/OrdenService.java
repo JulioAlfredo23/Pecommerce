@@ -5,9 +5,11 @@
 package com.comercio.Service;
 
 import com.comercio.Model.Orden;
+import java.util.List;
 
 public interface OrdenService {
     
+    List<Orden> findAll();
     Orden save(Orden orden);
     
     
