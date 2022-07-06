@@ -7,7 +7,9 @@ package com.comercio.Controller;
 import com.comercio.Model.DetalleOrden;
 import com.comercio.Model.Orden;
 import com.comercio.Model.Producto;
+import com.comercio.Model.Usuario;
 import com.comercio.Service.ProductoService;
+import com.comercio.Service.UsuarioService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,8 @@ public class HomeController {
     @Autowired
     ProductoService ProductoService;
     
+    @Autowired
+    private UsuarioService usuarioService;
     //para almacenar los detalles de la orden 
     List<DetalleOrden> detalles= new ArrayList<DetalleOrden>();
     // datos de la orden
@@ -86,10 +90,9 @@ public class HomeController {
         detalles.add(detalleOrden);
                 
         }
-        
-        else{
+ 
         sumaTotal=detalles.stream().mapToDouble(dt->dt.getTotal()).sum();
-        orden.setTotal(sumaTotal);}
+        orden.setTotal(sumaTotal);
         model.addAttribute("carrito",detalles);
         model.addAttribute("orden",orden);
         
@@ -132,7 +135,14 @@ public class HomeController {
     }
     
     @GetMapping("/orden")
-    public String verorden(){
+    public String verorden(Model model){
+        int a =1;
+        long b=Long.parseLong(a+"");
+        
+        Usuario usuario=usuarioService.findById(b).get();
+        model.addAttribute("carrito",detalles);
+        model.addAttribute("orden",orden);
+        model.addAttribute("usuario",usuario);
     return "usuario/resumenorden";
     }
     
