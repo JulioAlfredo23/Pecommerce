@@ -6,6 +6,8 @@ package com.comercio.Controller;
 
 import com.comercio.Model.Usuario;
 import com.comercio.Service.UsuarioService;
+import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,36 @@ public class UsuarioController {
         
     return "redirect:/";
     }
+    
+    @GetMapping("/login")
+    public String MostarLogin(){
+    
+    return "usuario/login";
+    }
+    
+    @PostMapping("/acceder")
+    public String Acceder(Usuario usuario,HttpSession session ){
+    
+        logger.info("accesos : {}",usuario);
+        
+        Optional<Usuario>user=usuarioService.findByEmail(usuario.getEmail());
+//        logger.info("usuario de BD : {}",user.get());        
+
+        if (user.isPresent()){
+        session.setAttribute("idUsuario",user.get().getId() );
+        if(user.get().getTipo().equals("ADMIN")){
+        return "redirect:/administrador/";
+        
+        }
+        
+        }   else {
+        logger.info("usuario no existe");   
+         
+ return "usuario/noexiste";
+        }
+        
+        return "redirect:/";
+    }
+    
     
 }
